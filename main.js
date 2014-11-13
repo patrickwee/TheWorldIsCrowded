@@ -48,6 +48,7 @@ var numbersFunction = function(searchTerm){
 
 
 
+			$("#loadingthing").hide();
 			$("#resultsTarget").html('');
 			$("#resultsTarget").append(htmlstring);
 
@@ -67,6 +68,16 @@ var numbersFunction = function(searchTerm){
 	});
 };
 
+var loadingfunction = function(){
+		var loadingtext="";
+		loadingtext+="</br></br><h1>Greatness is on its way...</h1>";
+		loadingtext+="<h5>Retrieving data from around the world...</h5></br></br>";
+		$("#loadingthing").html('');
+		$("#loadingthing").append(loadingtext);
+
+
+	};
+
 $(document).ready(function(){
 	console.log("LOADED!!!!");
 
@@ -75,6 +86,10 @@ $(document).ready(function(){
 		console.log("Clicked search");
 		$("#resultsTarget").html("");
 		var newSearchTerm = $("#query").val();
+
+		loadingfunction();
+		console.log("I've clicked Greatness");
+		
 		console.log(newSearchTerm);
 		numbersFunction(newSearchTerm);
 	});
@@ -102,22 +117,7 @@ var msg = '';
 function setup() {
 	console.log("Setup");
 	createCanvas(windowWidth, windowHeight/1.5);
-
-	/*
-	//ALT APPROACH - use loadJSON
-	loadJSON('http://api.open-notify.org/astros.json', loaded);
-	*/
 }
-
-/*
-//Use with ALT setup approach
-function loaded(data){
-	console.log("Got the data!");
-	console.log(data);
-	spaceData.apiData = data;
-	spaceData.ready = true;
-}
-*/
 
 function draw() {
 	background(51,204,255);
@@ -126,7 +126,6 @@ function draw() {
 		console.log("Data is ready!");
 		if (spaceData.apiData === 0){
 			//Update msg div
-			msg.html("You apparently don't have to swim with anyone!" );
 			spaceData.ready = false;
 		}
 		else{
